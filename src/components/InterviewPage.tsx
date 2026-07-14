@@ -8,6 +8,7 @@ import { VideoFeed } from './VideoFeed';
 import { ChatPanel } from './ChatPanel';
 import { ControlButtons } from './ControlButtons';
 import { ReportView } from './ReportView';
+import { EmotionChart } from './EmotionChart';
 
 export function InterviewPage() {
   const face = useFaceDetection();
@@ -103,6 +104,15 @@ export function InterviewPage() {
             <ChatPanel messages={interview.messages} />
           </div>
         </div>
+
+        {(face.isActive || face.emotionHistory.length > 0) && (
+          <div className="mt-6">
+            <EmotionChart
+              emotionHistory={face.emotionHistory}
+              isActive={face.isActive}
+            />
+          </div>
+        )}
 
         <ReportView report={interview.report} />
       </div>
