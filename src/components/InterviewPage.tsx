@@ -77,13 +77,22 @@ export function InterviewPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <VideoFeed
-            videoRef={face.videoRef}
-            canvasRef={face.canvasRef}
-            currentEmotion={face.currentEmotion}
-            isActive={face.isActive}
-            isLoading={face.isLoading}
-          />
+          <div className="flex flex-col gap-4">
+            <VideoFeed
+              videoRef={face.videoRef}
+              canvasRef={face.canvasRef}
+              currentEmotion={face.currentEmotion}
+              isActive={face.isActive}
+              isLoading={face.isLoading}
+            />
+
+            {(face.isActive || face.emotionHistory.length > 0) && (
+              <EmotionChart
+                emotionHistory={face.emotionHistory}
+                isActive={face.isActive}
+              />
+            )}
+          </div>
 
           <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4 min-h-[400px]">
             <ControlButtons
@@ -104,15 +113,6 @@ export function InterviewPage() {
             <ChatPanel messages={interview.messages} />
           </div>
         </div>
-
-        {(face.isActive || face.emotionHistory.length > 0) && (
-          <div className="mt-6">
-            <EmotionChart
-              emotionHistory={face.emotionHistory}
-              isActive={face.isActive}
-            />
-          </div>
-        )}
 
         <ReportView report={interview.report} />
       </div>
